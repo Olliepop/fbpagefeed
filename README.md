@@ -12,3 +12,7 @@ There are 4 settings, which can be found in the Settings menu in the CMS under "
 - Facebook App Secret
 - Facebook Access Token
 - Facebook Page ID
+
+## Installation
+
+`"olliepop/fbpagefeed": "dev-master"`
