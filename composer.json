@@ -1,0 +1,21 @@
+{
+  "name": "Olliepop/fbpagefeed",
+  "description": "Retrieves posts from a Facebook page for a SilverStripe site, pulling posts and storing them via CliController task",
+  "type": "silverstripe-module",
+  "homepage": "https://github.com/Olliepop/fbpagefeed",
+  "author": [
+    {
+      "name": "Oliver Shaw",
+      "email": "oliver.shaw@littlegiant.co.nz"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/Olliepop/fbpagefeed/issues"
+  },
+  "require": {
+    "php": ">=5.3.2",
+    "silverstripe/cms": ">=3.1.0",
+    "silverstripe/framework": ">=3.1.0",
+    "facebook/php-sdk-v4": "4.0.*"
+  }
+}

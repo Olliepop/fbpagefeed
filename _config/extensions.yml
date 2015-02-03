@@ -1,0 +1,11 @@
+---
+Name: 'extensions'
+After: 'framework/*', 'cms/*'
+---
+SiteConfig:
+  extensions:
+    - Olliepop\FBPageFeed\SiteConfigExtension
+
+Page_Controller:
+  extensions:
+    - Olliepop\FBPageFeed\PageControllerExtension
