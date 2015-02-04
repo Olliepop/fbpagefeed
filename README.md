@@ -13,6 +13,13 @@ There are 4 settings, which can be found in the Settings menu in the CMS under "
 - Facebook Access Token
 - Facebook Page ID
 
+### Obtaining the Access Token & Page ID
+ 1. Go to the [Graph API Explorer](http://developers.facebook.com/tools/explorer/)
+ 2. Choose your app from the dropdown menu
+ 3. Click "Get Access Token"
+ 4. Choose the `manage_pages` permission
+ 5. Enter `me/accounts` as the endpoint (after `/vX.X/`) and copy your page's `access_token`
+
 ## Installation
 
 `"olliepop/fbpagefeed": "dev-master"`
