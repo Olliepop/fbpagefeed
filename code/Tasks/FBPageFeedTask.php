@@ -28,6 +28,8 @@ class FBPageFeedTask extends \CliController
         $posts = $this->fbService->getPostsFromFacebook();
         $inserted = 0;
         foreach($posts as $i=>$post) {
+            if(!isset($post['FBID'])) break;
+            
             if($storedPosts{0}->FBID == $post['FBID']) {
                 break;
             } else {
