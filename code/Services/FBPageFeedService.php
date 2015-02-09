@@ -124,10 +124,23 @@ class FBPageFeedService
                         $subRequest = new FacebookRequest(
                             $this->fbSession,
                             'GET',
-                            '/' . $responseData->object_id . '?fields=source'
+                            '/' . $responseData->object_id . '?fields=images'
                         );
                         $subResponse = $subRequest->execute()->getResponse();
-                        $posts[$iteration]['ImageSource'] = $subResponse->source;
+
+                        // Get the largest image for best quality
+                        $images = $subResponse->images;
+                        $largestWidth = 0;
+                        $largestIndex = 0;
+                        // Loop through each supplied image object, remembering the largest
+                        foreach($images as $index=>$image) {
+                            if($image->width > $largestWidth) {
+                                $largestIndex = $index;
+                                $largestWidth = $image->width;
+                            }
+                        }
+                        // Cherry-pick the source of the largest image asset
+                        $posts[$iteration]['source'] = $images{$largestIndex}->source;
                     }
                 }
 

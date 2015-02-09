@@ -29,7 +29,7 @@ class FBPageFeedTask extends \CliController
         $inserted = 0;
         foreach($posts as $i=>$post) {
             if(!isset($post['FBID'])) break;
-            
+
             if($storedPosts{0}->FBID == $post['FBID']) {
                 break;
             } else {
