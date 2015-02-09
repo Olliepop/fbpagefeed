@@ -22,4 +22,4 @@ There are 4 settings, which can be found in the Settings menu in the CMS under "
 
 ## Installation
 
-`"olliepop/fbpagefeed": "dev-master"`
+`"olliepop/fbpagefeed": "0.1.*"`
