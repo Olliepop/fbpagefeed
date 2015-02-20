@@ -33,13 +33,13 @@ class FBPageFeedTask extends \CliController
             if($storedPosts{0}->FBID == $post['FBID']) {
                 break;
             } else {
-                if(isset($post['ImageSource'])) {
-                    $imageSource = $post['ImageSource'];
+                if(isset($post['source'])) {
+                    $imageSource = $post['source'];
                 } else {
                     $imageSource = null;
                 }
 
-                $this->fbService->storePost($post['FBID'], $post['Content'], $post['URL'], $post['TimePosted'], $imageSource);
+                $this->fbService->storePost($post['FBID'], $post['Content'], $post['URL'], $post['source'], $imageSource);
                 $inserted++;
             }
         }
