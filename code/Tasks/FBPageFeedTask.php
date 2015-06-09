@@ -1,6 +1,7 @@
 <?php
 
 use Olliepop\FBPageFeed\FBPageFeedService;
+use Olliepop\FBPageFeed\FacebookPost;
 
 
 //      Run every 10 minutes. Store in crontab:
@@ -9,6 +10,7 @@ use Olliepop\FBPageFeed\FBPageFeedService;
 /*
  * Class FBPageFeedTask
  */
+
 class FBPageFeedTask extends \CliController
 {
 
@@ -27,13 +29,15 @@ class FBPageFeedTask extends \CliController
         $storedPosts = $this->fbService->getStoredPosts();
         $posts = $this->fbService->getPostsFromFacebook();
         $inserted = 0;
-        foreach($posts as $i=>$post) {
-            if(!isset($post['FBID'])) break;
+        foreach ($posts as $i => $post) {
+            if (!isset($post['FBID'])) break;
 
-            if($storedPosts{0}->FBID == $post['FBID']) {
+            $existingPost = FacebookPost::get()->filter('URL', $post['URL'])->first();
+
+            if ($existingPost) {
                 break;
             } else {
-                if(isset($post['source'])) {
+                if (isset($post['source'])) {
                     $imageSource = $post['source'];
                 } else {
                     $imageSource = null;
