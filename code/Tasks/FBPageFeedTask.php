@@ -43,7 +43,7 @@ class FBPageFeedTask extends \CliController
                     $imageSource = null;
                 }
 
-                $this->fbService->storePost($post['FBID'], $post['Content'], $post['URL'], $post['source'], $imageSource);
+                $this->fbService->storePost($post['FBID'], $post['Content'], $post['URL'], $post['TimePosted'], $imageSource);
                 $inserted++;
             }
         }
