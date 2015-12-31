@@ -37,11 +37,11 @@ class FBPageFeedService
     /**
      * @param null $pageID The Facebook ID of the page, can be obtained at http://findmyfacebookid.com
      */
-    function __construct($pageID = null)
+    public function __construct($pageID = null)
     {
         $siteConfig = \SiteConfig::current_site_config();
 
-        if(!$pageID) {
+        if (!$pageID) {
             $pageID = $siteConfig->FBPageID;
         }
 
@@ -52,7 +52,6 @@ class FBPageFeedService
 
         FacebookSession::setDefaultApplication($this->appID, $this->appSecret);
         $this->fbSession = new FacebookSession($this->accessToken);
-
     }
 
     /**
@@ -83,7 +82,9 @@ class FBPageFeedService
         $fbPost->Content = $content;
         $fbPost->TimePosted = $timePosted;
         $fbPost->URL = $url;
-        if($imageSource) $fbPost->ImageSource = $imageSource;
+        if ($imageSource) {
+            $fbPost->ImageSource = $imageSource;
+        }
         $fbPost->write();
 
         return $fbPost;
@@ -108,19 +109,20 @@ class FBPageFeedService
             $response = $request->execute();
             $pagefeed = $response->getResponse();
 
-            foreach($pagefeed->data as $iteration=>$responseData) {
+            foreach ($pagefeed->data as $iteration=>$responseData) {
+                if ($iteration==$limit) {
+                    break;
+                }
 
-                if($iteration==$limit) break;
-
-                if(isset($responseData->message)) {
+                if (isset($responseData->message)) {
                     $posts[$iteration]['Content'] = $responseData->message;
                     $posts[$iteration]['FBID'] = $responseData->object_id;
                     $posts[$iteration]['URL'] = $responseData->link;
                     $posts[$iteration]['TimePosted'] = $responseData->created_time;
                 }
 
-                if($responseData->type == "photo") {
-                    if(isset($responseData->object_id)) {
+                if ($responseData->type == "photo") {
+                    if (isset($responseData->object_id)) {
                         $subRequest = new FacebookRequest(
                             $this->fbSession,
                             'GET',
@@ -133,17 +135,17 @@ class FBPageFeedService
                         $largestWidth = 0;
                         $largestIndex = 0;
                         // Loop through each supplied image object, remembering the largest
-                        foreach($images as $index=>$image) {
-                            if($image->width > $largestWidth) {
+                        foreach ($images as $index=>$image) {
+                            if ($image->width > $largestWidth) {
                                 $largestIndex = $index;
                                 $largestWidth = $image->width;
                             }
                         }
                         // Cherry-pick the source of the largest image asset
-                        $posts[$iteration]['source'] = $images{$largestIndex}->source;
+                        $posts[$iteration]['source'] = $images{$largestIndex}
+                        ->source;
                     }
                 }
-
             }
             return $posts;
         } catch (FacebookRequestException $e) {
@@ -156,5 +158,4 @@ class FBPageFeedService
 
         return false;
     }
-
 }

@@ -3,7 +3,6 @@
 use Olliepop\FBPageFeed\FBPageFeedService;
 use Olliepop\FBPageFeed\FacebookPost;
 
-
 //      Run every 10 minutes. Store in crontab:
 //      */10 * * * * /var/www/vhosts/nzse.ac.nz/httpdocs/framework/sake FBPageFeed "flush=1"
 
@@ -30,7 +29,9 @@ class FBPageFeedTask extends \CliController
         $posts = $this->fbService->getPostsFromFacebook();
         $inserted = 0;
         foreach ($posts as $i => $post) {
-            if (!isset($post['FBID'])) break;
+            if (!isset($post['FBID'])) {
+                break;
+            }
 
             $existingPost = FacebookPost::get()->filter('URL', $post['URL'])->first();
 
@@ -50,5 +51,4 @@ class FBPageFeedTask extends \CliController
 
         echo 'Stored ' . $inserted . ' new posts.';
     }
-
 }
