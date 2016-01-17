@@ -24,5 +24,4 @@ class FacebookPost extends \DataObject
      * @var string
      */
     private static $default_sort = 'TimePosted DESC';
-
 }

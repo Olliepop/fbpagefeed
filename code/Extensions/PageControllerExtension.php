@@ -10,5 +10,4 @@ class PageControllerExtension extends \DataExtension
         $fbService = new FBPageFeedService();
         return $fbService->getStoredPosts();
     }
-
 }
